@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Holiday;
+use Faker\Generator as Faker;
 
 class HolidaysTableSeeder extends Seeder
 {
@@ -10,18 +11,21 @@ class HolidaysTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $newHoliday = new Holiday();
-        $newHoliday->code = "AA001475";
-        $newHoliday->city_departure = "Roma";
-        $newHoliday->date_departure = "2021-07-14";
-        $newHoliday->city_arrival = "Afganistan";
-        $newHoliday->date_return =  "2022-01-01";
-        $newHoliday->description =  "Vacanza col botto!";
-        $newHoliday->price = "1499.99";
-        $newHoliday->name_hotel = "Halak Bar";
-        $newHoliday->number_stars = 4;
-        $newHoliday->save();
+        for($i=0; $i<100; $i++){
+            $newHoliday = new Holiday();
+            $newHoliday->code = $faker->isbn10();
+            $newHoliday->city_departure = $faker->city();
+            $newHoliday->date_departure = $faker->dateTimeThisMonth();
+            $newHoliday->city_arrival = $faker->city();
+            $newHoliday->date_return =  $faker->dateTimeBetween('+1 week', '+4 week');
+            $newHoliday->description =  $faker->text(100);
+            $newHoliday->price = $faker->randomFloat(2, 200, 7000);
+            $newHoliday->name_hotel = $faker->streetName();
+            $newHoliday->number_stars = $faker->numberBetween(1, 5);
+            $newHoliday->save();
+        }
+        
     }
 }

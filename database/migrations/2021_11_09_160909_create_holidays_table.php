@@ -22,7 +22,7 @@ class CreateHolidaysTable extends Migration
             $table->date("date_return");
             $table->string("description");
             $table->float('price', 8, 2);
-            $table->string("name_hotel", 30);
+            $table->string("name_hotel");
             $table->unsignedSmallInteger("number_stars");
             $table->timestamps();
         });
